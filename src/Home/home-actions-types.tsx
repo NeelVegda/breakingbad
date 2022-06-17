@@ -1,0 +1,2 @@
+export const SAVE_TO_STORE = 'SAVE_TO_STORE';
+export const ADD_TO_FAVOURITE = 'ADD_TO_FAVOURITE';

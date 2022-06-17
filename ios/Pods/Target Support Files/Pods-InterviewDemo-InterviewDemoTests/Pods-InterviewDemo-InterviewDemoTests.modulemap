@@ -1,0 +1,6 @@
+module Pods_InterviewDemo_InterviewDemoTests {
+  umbrella header "Pods-InterviewDemo-InterviewDemoTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

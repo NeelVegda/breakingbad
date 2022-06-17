@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   View, Image,
 } from 'react-native';
-import HomeStyle from './HomeStyle'
-import { connect, useDispatch } from 'react-redux';
-import { addToFavourite } from './home-action-creater';
+import FavouriteStyle from './FavouriteStyle'
+import { connect } from 'react-redux';
+import { addToFavourite } from '../Home/home-action-creater';
 import { getCharacters } from '../Url/URL';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -32,15 +32,11 @@ const getCharecters = async() => {
   });
 }
 
-function Home(props){
+function Favourite(props){
   console.log('props: ', props);
   getCharecters().then((data: any) => {
     console.log('data :: ', data);
   });
-  const dispatch = useDispatch();
-
-  let fileData = require('./data.json');
-  const [characters, setCharectors] = useState(fileData);
   const [favourite, setfavourite] : Array<any> = useState([]);
 
   const addToFavourite = (item: any) => {
@@ -64,10 +60,10 @@ function Home(props){
     }
     return (
       <TouchableOpacity style={{marginBottom: 20}}>
-        <Image style={HomeStyle.charecterImageStyle} source={Image_Http_URL} resizeMode='stretch'/>
+        <Image style={FavouriteStyle.charecterImageStyle} source={Image_Http_URL} resizeMode='stretch'/>
         <View style={{flexDirection: 'row', alignItems: 'center', display:'flex', justifyContent: 'center', height: 45}}>
-          <View style={HomeStyle.charecterTextContainer}>
-            <Text style={HomeStyle.charecterText}>{item.name}</Text>
+          <View style={FavouriteStyle.charecterTextContainer}>
+            <Text style={FavouriteStyle.charecterText}>{item.name}</Text>
             <Text style={{color: 'white', fontSize: 14, textAlign: 'left', width: '100%'}}>{item.nickname}</Text>
           </View>
           <TouchableOpacity style={{height: 35, width: 35, marginLeft: 20, display: 'flex', alignItems: 'center', justifyContent: 'center'}}
@@ -80,23 +76,17 @@ function Home(props){
   }
 
   return (
-    <View style={HomeStyle.container}>
+    <View style={FavouriteStyle.container}>
       <StatusBar/>
-      <View style={HomeStyle.headerContainer}>
-        <Text style={HomeStyle.headerText}>The Breaking bad</Text>
+      <View style={FavouriteStyle.headerContainer}>
         <TouchableOpacity style={{height: 35, width: 35, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Image style={{height: 30, width: 30}} source={require('../../assets/search.png')}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={{height: 35, width: 35, marginLeft: 10, display: 'flex', alignItems: 'center', justifyContent: 'center'}}
-        onPress={() => props.navigation.navigate('Favourite')}>
-          <Image style={{height: 30, width: 30}} source={require('../../assets/loveselected.png')}/>
+          <Image style={{height: 30, width: 30}} source={require('../../assets/arrow.png')}/>
         </TouchableOpacity>
       </View>
-      <View style={HomeStyle.dataContainer}>
+      <View style={FavouriteStyle.dataContainer}>
         <FlatList 
           numColumns={2}
-          extraData={favourite}
-          data={characters}
+          data={favourite}
           renderItem={({item}) => _renderItem(item) }
           showsHorizontalScrollIndicator={false}
           keyExtractor={this._keyExtractor}
@@ -118,4 +108,4 @@ const mapDispatchtoProps = (dispatch) =>{
   }
 }
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(Home);
+export default connect(mapStatetoProps, mapDispatchtoProps)(Favourite);
